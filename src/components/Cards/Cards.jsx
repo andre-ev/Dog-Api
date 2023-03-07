@@ -17,7 +17,7 @@ export default function Cards({dogs}) {
                 name={name}
                 bred_for={bred_for}
                 breed_group={breed_group}
-                image={image.url}
+                image={image}
                 onClose={() => window.alert('Emulamos que se cierra la card')}
               />
             </div>

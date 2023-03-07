@@ -1,14 +1,47 @@
 import './App.css'
 import Navs from './components/Nav'
 import Cards from './components/Cards/Cards'
-import dogs from './data.js'
+import { useState } from 'react';
 
 function App () {
+  const [dogs, setDogs] = useState([]);
+
+  const onSearch = (dogs) => {
+    fetch(`https://api.thedogapi.com/v1/breeds/${dogs}`)
+    .then((response) => response.json())
+    .then((data) => {
+        if(data.name) {
+          const dog = {
+            name: data.name,
+            bread_for: data.bread_for,
+            breed_group: data.breed_group,
+            image: ''
+          };
+          fetch(`https://api.thedogapi.com/v1/images/${data.reference_image_id}`)
+          .then(response => response.json())
+          .then(data => {
+            if(data !== undefined) {
+                dog.image = data.url;
+                console.log(dog);
+            } else {
+                window.alert('No se pudo obtener la url de la imagen.');
+            }
+          })
+          .catch(error => console.error(error))
+          .finally(() => {
+            setDogs((oldDogs) => [...oldDogs, dog]);
+          });
+        } else {
+          window.alert('No hay personajes con ese ID');
+        }
+    })
+    .catch(error => console.error(error));
+  };
+
   return (
     <div className='App' style={{ padding: '25px' }}>
-      <div>
-        <Navs />
-      </div>
+
+      <Navs onSearch={onSearch}/>
       <div>
         <Cards dogs={dogs} />
       </div>
@@ -22,4 +55,4 @@ function App () {
   )
 }
 
-export default App
+export default App;

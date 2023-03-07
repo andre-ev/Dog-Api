@@ -1,13 +1,11 @@
-import Navs from './SearchBar'
+import SearchBar from './SearchBar';
 
-export default function Nav() {
+const Nav = ({onSearch}) => {
   return(
+    <nav>
+      <SearchBar onSearch={onSearch}/>
+    </nav>
+ )
+};
 
-  )
-}
-      <div>
-        <SearchBar
-          onSearch={(characterID) => window.alert(characterID)}
-        />
-      </div>
-
+export default Nav;
