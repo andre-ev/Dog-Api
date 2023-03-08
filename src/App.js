@@ -12,6 +12,7 @@ function App () {
     .then((data) => {
         if(data.name) {
           const dog = {
+            id: data.id,
             name: data.name,
             bread_for: data.bread_for,
             breed_group: data.breed_group,
@@ -22,7 +23,6 @@ function App () {
           .then(data => {
             if(data !== undefined) {
                 dog.image = data.url;
-                console.log(dog);
             } else {
                 window.alert('No se pudo obtener la url de la imagen.');
             }
@@ -40,7 +40,7 @@ function App () {
 
   const onClose = (id) => {
     setDogs(
-      (oldDogs) => oldDogs.filter((dog) => dog.id !== id)
+      dogs.filter((dog) => dog.id !== id)
     )
   };
 
@@ -49,7 +49,7 @@ function App () {
 
       <Navs onSearch={onSearch}/>
       <div>
-        <Cards dogs={dogs} onclose={onClose} />
+        <Cards dogs={dogs} onClose={onClose} />
       </div>
       <hr />
       <div>
