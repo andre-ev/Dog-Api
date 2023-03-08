@@ -38,12 +38,18 @@ function App () {
     .catch(error => console.error(error));
   };
 
+  const onClose = (id) => {
+    setDogs(
+      (oldDogs) => oldDogs.filter((dog) => dog.id !== id)
+    )
+  };
+
   return (
     <div className='App' style={{ padding: '25px' }}>
 
       <Navs onSearch={onSearch}/>
       <div>
-        <Cards dogs={dogs} />
+        <Cards dogs={dogs} onclose={onClose} />
       </div>
       <hr />
       <div>

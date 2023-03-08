@@ -1,7 +1,7 @@
 import Card from './Card';
 import style from './Cards.module.css'
 
-export default function Cards({dogs}) {
+export default function Cards({dogs, onClose}) {
    const sliceDogs = dogs.slice(0, 10);
 
    return(
@@ -18,7 +18,7 @@ export default function Cards({dogs}) {
                 bred_for={bred_for}
                 breed_group={breed_group}
                 image={image}
-                onClose={() => window.alert('Emulamos que se cierra la card')}
+                onClose={() => onClose(id)}
               />
             </div>
           );
