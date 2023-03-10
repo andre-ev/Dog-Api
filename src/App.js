@@ -1,7 +1,11 @@
-import './App.css'
-import Navs from './components/Nav'
-import Cards from './components/Cards/Cards'
-import { useState } from 'react';
+import "./App.css";
+import Navs from "./components/Nav";
+import Cards from "./components/Cards/Cards";
+import About from "./components/About";
+import Detail from "./components/Detail/Detail";
+import Form from "./components/Forms/Form";
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
 
 function App () {
   const [dogs, setDogs] = useState([]);
@@ -16,7 +20,7 @@ function App () {
             name: data.name,
             bread_for: data.bread_for,
             breed_group: data.breed_group,
-            image: ''
+            image: ""
           };
           fetch(`https://api.thedogapi.com/v1/images/${data.reference_image_id}`)
           .then(response => response.json())
@@ -24,7 +28,7 @@ function App () {
             if(data !== undefined) {
                 dog.image = data.url;
             } else {
-                window.alert('No se pudo obtener la url de la imagen.');
+                window.alert("No se pudo obtener la url de la imagen.");
             }
           })
           .catch(error => console.error(error))
@@ -32,7 +36,7 @@ function App () {
             setDogs((oldDogs) => [...oldDogs, dog]);
           });
         } else {
-          window.alert('No hay personajes con ese ID');
+          window.alert("No hay personajes con ese ID");
         }
     })
     .catch(error => console.error(error));
@@ -45,12 +49,19 @@ function App () {
   };
 
   return (
-    <div className='App' style={{ padding: '25px' }}>
+    <div className="App" style={{ padding: "25px" }}>
 
       <Navs onSearch={onSearch}/>
-      <div>
-        <Cards dogs={dogs} onClose={onClose} />
-      </div>
+      <Routes>
+        <Route 
+          path="home" 
+          element={<Cards dogs={dogs} onClose={onClose} />}
+        />
+        <Route path="about" element={<About />} />
+        <Route path="detail/:detailId" element={<Detail />} />
+        <Route path="form" element={<Form />} />
+      </Routes>
+
       <hr />
       <div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">

@@ -12,6 +12,7 @@ export default function Cards({dogs, onClose}) {
           return(
               <Card
                 key={id}
+                id={id}
                 name={name}
                 bred_for={bred_for}
                 breed_group={breed_group}
