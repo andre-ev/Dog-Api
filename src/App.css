@@ -1,3 +1,15 @@
 .App {
-   text-align: center;
+  text-align: center;
+    min-height: 100vh;
 }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+footer svg {
+  display: flex;
+}
+
